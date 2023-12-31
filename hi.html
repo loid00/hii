@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .firework-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .firework {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url(hellokitty.png); /* Replace 'hellokitty.png' with the path to your Hello Kitty image */
+            background-size: cover;
+            border-radius: 50%;
+            opacity: 0;
+            animation: explode 2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+            25% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            75% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-500px) scale(3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="firework-container">
+        <h1>Happy new year, Rachelle !!!</h1>
+        <script>
+            // Generate random Hello Kitty fireworks at varying intervals
+            function createHelloKittyFirework() {
+                const numFireworks = 10; // Number of fireworks to create at once
+
+                for (let i = 0; i < numFireworks; i++) {
+                    const firework = document.createElement("div");
+                    firework.className = "firework";
+                    firework.style.left = Math.random() * window.innerWidth + "px";
+                    firework.style.top = Math.random() * window.innerHeight + "px";
+                    firework.style.width = Math.random() * 50 + "px";
+                    firework.style.height = firework.style.width;
+                    firework.style.animationDuration = Math.random() * 2 + 1 + "s";
+                    document.querySelector('.firework-container').appendChild(firework);
+
+                    // Remove the firework element after the animation ends
+                    firework.addEventListener("animationiteration", () => {
+                        document.querySelector('.firework-container').removeChild(firework);
+                    });
+                }
+            }
+
+            // Create random Hello Kitty fireworks at varying intervals
+            function startHelloKittyFireworks() {
+                createHelloKittyFirework();
+                setTimeout(startHelloKittyFireworks, Math.random() * 2000 + 500);
+            }
+
+            // Start the random Hello Kitty fireworks
+            startHelloKittyFireworks();
+        </script>
+    </div>
+</body>
+</html>
